@@ -1,0 +1,27 @@
+class Solution {
+    public int[][] divideArray(int[] nums, int k) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        
+        for (int i = 0; i < nums.length; i += 3) {
+            if (i + 2 < nums.length && nums[i + 2] - nums[i] <= k) {
+                List<Integer> group = new ArrayList<>();
+                group.add(nums[i]);
+                group.add(nums[i + 1]);
+                group.add(nums[i + 2]);
+                result.add(group);
+            } else {
+                return new int[0][0];
+            }
+        }
+        
+        int[][] res = new int[result.size()][3];
+        for (int i = 0; i < result.size(); i++) {
+            for (int j = 0; j < 3; j++) {
+                res[i][j] = result.get(i).get(j);
+            }
+        }
+        
+        return res;
+    }
+}
