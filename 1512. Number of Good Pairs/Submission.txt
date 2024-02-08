@@ -1,0 +1,17 @@
+class Solution {
+    public int numIdenticalPairs(int[] nums) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        
+        int goodPairs = 0;
+        
+        for (int freq : frequencyMap.values()) {
+            goodPairs += (freq * (freq - 1)) / 2;
+        }
+        
+        return goodPairs;
+    }
+}
