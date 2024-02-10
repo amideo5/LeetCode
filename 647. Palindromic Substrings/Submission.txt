@@ -1,0 +1,26 @@
+class Solution {
+    public int countSubstrings(String s) {
+        int count = 0;
+        int n = s.length();
+        boolean[][] isPalindrome = new boolean[n][n];
+        
+        for (int len = 1; len <= n; len++) {
+            for (int start = 0; start <= n - len; start++) {
+                int end = start + len - 1;
+                if (len == 1) {
+                    isPalindrome[start][end] = true;
+                } else if (len == 2) {
+                    isPalindrome[start][end] = (s.charAt(start) == s.charAt(end));
+                } else {
+                    isPalindrome[start][end] = (s.charAt(start) == s.charAt(end) && isPalindrome[start + 1][end - 1]);
+                }
+                
+                if (isPalindrome[start][end]) {
+                    count++;
+                }
+            }
+        }
+        
+        return count;
+    }
+}
