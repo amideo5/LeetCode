@@ -1,0 +1,26 @@
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        int[] charCount = new int[26]; 
+        for (char c : chars.toCharArray()) {
+            charCount[c - 'a']++;
+        }
+        
+        int result = 0;
+        for (String word : words) {
+            if (canForm(word, charCount.clone())) {
+                result += word.length();
+            }
+        }
+        
+        return result;
+    }
+
+    private boolean canForm(String word, int[] charCount) {
+        for (char c : word.toCharArray()) {
+            if (--charCount[c - 'a'] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
