@@ -1,0 +1,38 @@
+class Solution {
+    public int maxSumSubmatrix(int[][] matrix, int k) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int maxSum = Integer.MIN_VALUE;
+
+        for (int colStart = 0; colStart < cols; colStart++) {
+            int[] rowSum = new int[rows];
+            for (int colEnd = colStart; colEnd < cols; colEnd++) {
+                for (int row = 0; row < rows; row++) {
+                    rowSum[row] += matrix[row][colEnd];
+                }
+                maxSum = Math.max(maxSum, kadane(rowSum, k));
+                if (maxSum == k) return k; 
+            }
+        }
+
+        return maxSum;
+    }
+
+    private int kadane(int[] arr, int k) {
+        int maxSum = Integer.MIN_VALUE;
+        int currentSum = 0;
+        TreeSet<Integer> set = new TreeSet<>();
+        set.add(0); 
+
+        for (int num : arr) {
+            currentSum += num;
+            Integer prevSum = set.ceiling(currentSum - k);
+            if (prevSum != null) {
+                maxSum = Math.max(maxSum, currentSum - prevSum);
+            }
+            set.add(currentSum);
+        }
+
+        return maxSum;
+    }
+}
