@@ -1,0 +1,19 @@
+class Solution {
+    public int totalMoney(int n) {
+        int total = 0;
+        int currentDeposit = 1;
+        int week = 1;
+        
+        for (int day = 1; day <= n; day++) {
+            total += currentDeposit;
+            currentDeposit++;
+            
+            if (day % 7 == 0) {
+                week++;
+                currentDeposit = week;
+            }
+        }
+        
+        return total;
+    }
+}
