@@ -1,0 +1,27 @@
+class Solution {
+    public boolean winnerOfGame(String colors) {
+        int n = colors.length();
+        int aMoves = 0;
+        int bMoves = 0;
+
+        for (int i = 1; i < n - 1; i++) {
+            if (colors.charAt(i - 1) == colors.charAt(i) && colors.charAt(i) == colors.charAt(i + 1)) {
+                if (colors.charAt(i) == 'A') {
+                    aMoves++;
+                } else {
+                    bMoves++;
+                }
+            }
+        }
+
+        if (aMoves > bMoves) {
+            return true;
+        }
+        else if (aMoves == bMoves) {
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+}
