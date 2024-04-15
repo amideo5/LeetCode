@@ -1,0 +1,26 @@
+class Solution {
+    public int maxFrequency(int[] nums, int k) {
+        Arrays.sort(nums); 
+        int left = 0; 
+        long sum = 0; 
+        int maxFreq = 0; 
+
+        for (int right = 0; right < nums.length; right++) {
+            sum += nums[right];
+
+            int windowSize = right - left + 1;
+            long operations = (long) nums[right] * windowSize - sum;
+
+            while (operations > k) {
+                sum -= nums[left]; 
+                left++;
+                windowSize--; 
+                operations = (long) nums[right] * windowSize - sum; 
+            }
+
+            maxFreq = Math.max(maxFreq, windowSize);
+        }
+
+        return maxFreq;
+    }
+}
