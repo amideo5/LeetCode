@@ -1,0 +1,53 @@
+public class Solution {
+    public int[][] findFarmland(int[][] land) {
+        List<int[]> result = new ArrayList<>();
+
+        int m = land.length;
+        int n = land[0].length;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (land[i][j] == 1) {
+                    int[] coordinates = dfs(land, i, j);
+                    result.add(coordinates);
+                }
+            }
+        }
+
+        int[][] resArr = new int[result.size()][4];
+        for (int i = 0; i < result.size(); i++) {
+            resArr[i] = result.get(i);
+        }
+
+        return resArr;
+    }
+
+    private int[] dfs(int[][] land, int row, int col) {
+        int[] coordinates = new int[4];
+        coordinates[0] = row;
+        coordinates[1] = col;
+        int m = land.length;
+        int n = land[0].length;
+
+        int bottomRightRow = row;
+        int bottomRightCol = col;
+
+        while (bottomRightRow < m && land[bottomRightRow][col] == 1) {
+            bottomRightRow++;
+        }
+        while (bottomRightCol < n && land[row][bottomRightCol] == 1) {
+            bottomRightCol++;
+        }
+
+        coordinates[2] = bottomRightRow - 1; 
+        coordinates[3] = bottomRightCol - 1;
+
+        for (int i = row; i <= coordinates[2]; i++) {
+            for (int j = col; j <= coordinates[3]; j++) {
+                land[i][j] = 0;
+            }
+        }
+
+        return coordinates;
+    }
+}
